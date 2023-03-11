@@ -9,6 +9,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 #COPY SOURCE => Destination (In this case, copy package and yarnlock into ./) and then install deps
+#Since we're copying yarn.lock, you should RUN yarn install --frozen-lockfile
+#Otherwise, don't COPY yarn.lock. This is currently redundant but it works so I will leave it for now.
 COPY package.json yarn.lock ./
 RUN yarn install --production
 
@@ -16,6 +18,7 @@ RUN yarn install --production
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+# This command copies all our local project files minus everything in .dockerignore over to our container
 COPY . .
 
 # Disables telemetry to nextjs, speeds up our processes
@@ -27,6 +30,7 @@ RUN yarn build
 FROM base AS runner
 WORKDIR /app
 
+#Defining our env variables here. Anything that needs to be hidden should probably not be here, not sure.
 ENV GITHUB_USERNAME eddiefahrenheit 
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
@@ -36,12 +40,11 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 alphacas
 
+# Important, nextjs builds the efficient version of the entire project? into the .next file
+# The line in next.config.js, output: 'standalone', puts the efficient version into the 'standalone' folder to be copied over for production
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=alphacas:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=alphacas:nodejs /app/.next/static ./.next/static
-#COPY --from=builder --chown=alphacas:nodejs /app/.next ./.next
-#COPY --from=builder /app/node_modules ./node_modules
-#COPY --from=builder /app/package.json ./package.json
 
 USER alphacas
 

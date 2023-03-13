@@ -6,12 +6,13 @@ FROM node:18-alpine AS base
 FROM base AS deps
 
 # Install with --no-cache, libc6-compat, aka glibc, the GNU C Library needed to run most/all linux programs
+# Hypothesis: Potentially not necessary for our preconfigured amazon linux server. Will test given the opportunity.
 RUN apk add --no-cache libc6-compat
 
 # Terminal equivalent of $ CD /app when we are in the container
 WORKDIR /app
 
-#COPY SOURCE => Destination (In this case, copy package and yarnlock into our container at ./) and then install deps
+#COPY source, destination (In this case, copy package.json and yarn.lock into our container at ./) in order to install deps
 # The --production tag means we are NOT installing dev dependencies
 # This COPY is run in exec form, it works the same way as the following COPY, arguments are just written in an array of strings
 COPY ["package.json", "yarn.lock", "./"]
@@ -21,7 +22,7 @@ RUN yarn --production
 # Build
 FROM base AS builder
 WORKDIR /app
-# Hypothesis: node_modules are built in production, but not in development environment
+# Hypothesis: Yarn builds node_modules in production, but not in development environment (Look for node modules in your local project)
 COPY --from=deps /app/node_modules ./node_modules
 # This command copies all our local project files minus everything in .dockerignore over to our container
 COPY . .
@@ -29,12 +30,12 @@ COPY . .
 # Defining process.env variables, if you add any keys here, at BARE MINIMUM, make sure to .gitignore this Dockerfile
 # Disables telemetry to nextjs during build, speeds up our processes
 ENV NEXT_TELEMETRY_DISABLED 1
-# Hypothesis: Depending on the project's static gen vs server side render,
+# Hypothesis: Depending on where the project calls the env variables, static gen vs server side render,
 # process.env variables may need to be either here or in run time configuration, respectively
 ENV GITHUB_USERNAME eddiefahrenheit
 
 # Hypothesis: Nextjs builds the efficient version of the entire project into the .next file (TS => JS, Dev organization things are taken away)
-# Hypothesis: In next.config.js, output: 'standalone', tells the efficient version to go into the standalone folder
+# In next.config.js, output: 'standalone', tells the efficient version to go into the standalone folder
 RUN yarn build
 
 # Configuring the runtime environment from here down

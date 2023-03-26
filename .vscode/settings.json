@@ -1,4 +1,9 @@
 {
-  "typescript.tsdk": ".yarn/cache/typescript-patch-2f73799a60-8f6260acc8.zip/node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": ".yarn/sdks"
 }

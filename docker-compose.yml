@@ -1,0 +1,10 @@
+services:
+  nextjs:
+    #platform: linux/amd64
+    #build: ./
+    image: eddiefahrenheit/githubportfolio-nextjs
+  nginx:
+    platform: linux/amd64
+    build: ./nginx/
+    ports:
+      - 80:80

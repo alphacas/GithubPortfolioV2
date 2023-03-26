@@ -22,7 +22,7 @@ RUN yarn --production
 # Build
 FROM base AS builder
 WORKDIR /app
-# Hypothesis: Yarn builds node_modules in production, but not in development environment (Look for node modules in your local project)
+# Hypothesis: Yarn creates node_modules in production, but not in development environment?
 COPY --from=deps /app/node_modules ./node_modules
 # This command copies all our local project files minus everything in .dockerignore over to our container
 COPY . .

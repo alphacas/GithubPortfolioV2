@@ -1,12 +1,12 @@
 Dockerfile
 .dockerignore
-node_modules/
+node_modules
 npm-debug.log
 README.md
-.next/
-.git/
+.next
+.git
 .github
 .env
 .docker
 LICENSE
-nginx/
+nginx

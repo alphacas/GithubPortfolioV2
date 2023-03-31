@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 import { FC, SVGProps } from "react";
-import { IconProps } from "../(components)/Icon/Icon";
+import { IconProps } from "../../(components)/(Icon)/Icon";
 
 export interface GithubDataProps {
   githubData: GithubData;

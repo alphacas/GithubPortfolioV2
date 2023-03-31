@@ -1,4 +1,5 @@
-import "./globals.css";
+import "tailwindcss/tailwind.css";
+import "./globalStyles.scss";
 
 export const metadata = {
   title: "Edmund He",
@@ -12,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-black">{children}</body>
     </html>
   );
 }

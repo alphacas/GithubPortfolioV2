@@ -1,4 +1,3 @@
-import "tailwindcss/tailwind.css";
 import "./globalStyles.scss";
 
 export const metadata = {

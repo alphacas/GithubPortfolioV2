@@ -1,12 +1,14 @@
-import Hero from "./(components)/(Sections)/Hero";
-import Header from "./(components)/(Sections)/Header";
-import Footer from "./(components)/(Sections)/Footer";
+import { getAllGithubData } from "../library/data/main";
+import { GithubData } from "../library/data/dataDef";
 
-import { getAllGithubData } from "./(library)/(data)/main";
-import { GithubData } from "./(library)/(data)/dataDef";
-import About from "./(components)/(Sections)/About";
+import Header from "../components/Sections/Header";
+import Hero from "../components/Sections/Hero";
+import About from "../components/Sections/About";
+import Resume from "../components/Sections/Resume/main";
+import Footer from "../components/Sections/Footer";
+import Portfolio from "../components/Sections/Portfolio";
 
-export const revalidate = 1200;
+export const revalidate = 1800;
 
 export default async function Home() {
   const username: string = process.env.GITHUB_USERNAME as string;
@@ -16,6 +18,8 @@ export default async function Home() {
       <Header {...githubData} />
       <Hero {...githubData} />
       <About {...githubData} />
+      <Resume {...githubData} />
+      {/* <Portfolio {...githubData} /> */}
       <Footer {...githubData} />
     </main>
   );

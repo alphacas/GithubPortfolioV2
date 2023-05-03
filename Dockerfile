@@ -17,7 +17,7 @@ WORKDIR /app
 # This COPY is run in exec form, it works the same way as the following COPY, arguments are just written in an array of strings
 COPY ["package.json", "yarn.lock", "./"]
 # "yarn", is the same as "yarn install". Both check and try to use a frozen lockfile first, no need for --frozen-lockfile flag
-RUN yarn --production
+RUN yarn
 
 # Build
 FROM base AS builder

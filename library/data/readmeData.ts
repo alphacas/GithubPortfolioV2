@@ -269,9 +269,9 @@ export async function getReadmeAndProfileData(username: string) {
   const { socialLinks, socialContactItems } = await createSocialLinks(username);
 
   const contactSection: ContactSection = {
-    headerText: "Get in touch.",
+    headerText: "Get in touch!",
     description:
-      "Feel free to get in touch if you'd like to ask me about my work or if you'd like to collaborate on a project together",
+      "Reach out if you'd like to ask me about my work or if you'd like to collaborate on a project together",
     items: aboutContactItems.concat(socialContactItems),
   };
   return { about, contactSection, heroData, socialLinks, skills };

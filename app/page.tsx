@@ -7,6 +7,7 @@ import About from "../components/Sections/About";
 import Resume from "../components/Sections/Resume/main";
 import Footer from "../components/Sections/Footer";
 import Portfolio from "../components/Sections/Portfolio";
+import Contact from "../components/Sections/Contact";
 
 export const revalidate = 1800;
 
@@ -19,7 +20,8 @@ export default async function Home() {
       <Hero {...githubData} />
       <About {...githubData} />
       <Resume {...githubData} />
-      {/* <Portfolio {...githubData} /> */}
+      <Portfolio {...githubData} />
+      <Contact {...githubData} />
       <Footer {...githubData} />
     </main>
   );

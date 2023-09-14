@@ -2,7 +2,7 @@ import "./globalStyles.scss";
 
 export const metadata = {
   title: "Edmund He",
-  description: "",
+  description: "Personal portfolio website",
 };
 
 export default function RootLayout({

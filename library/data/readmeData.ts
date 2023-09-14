@@ -146,7 +146,7 @@ async function createHeroData(
 ) {
   // trt all these hrefs in this order and use the first one that works
   const hrefs = [
-    `https://docs.google.com/document/d/1TM0HvmcCEiNnpcV0F6Ce1HEHkVko_UOa6QgGjJvSg4o/edit`,
+    `https://drive.google.com/file/d/1C3Klppj8mmzZ_RBm0dJgpW3qSkb7RJPx/view?usp=sharing`,
     `https://github.com/${username}/resume/blob/HEAD/resume.pdf`,
   ];
   let href = "";

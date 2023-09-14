@@ -60,6 +60,7 @@ USER alphacas
 EXPOSE 3000
 
 ENV PORT 3000
+ENV GITHUB_USERNAME eddiefahrenheit
 
 # We cannot use yarn dev/next dev here because this project's run time is built efficiently to its most basic form
 # Without all the dev tools that we get normally in development

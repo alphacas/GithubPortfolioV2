@@ -2,7 +2,7 @@ services:
   nextjs:
     platform: linux/amd64
     build: ./
-    image: eddiefahrenheit/githubportfolio-nextjs
+    image: eddiefahrenheit/githubportfoliov2-nextjs
   nginx:
     platform: linux/amd64
     build: ./nginx/

@@ -13,6 +13,12 @@ const Resume: NextPage<GithubData> = memo(
     return (
       <Section className="bg-neutral-100" sectionId={SectionId.Resume}>
         <div className="flex flex-col divide-y-2 divide-neutral-300">
+          {experience.length ? (
+            <ResumeSection title="Work">
+              <Work experience={experience} />
+            </ResumeSection>
+          ) : null}
+
           <ResumeSection title="Skills">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {skills.map((skillgroup, index) => (
@@ -23,12 +29,7 @@ const Resume: NextPage<GithubData> = memo(
               ))}
             </div>
           </ResumeSection>
-          ``
-          {experience.length ? (
-            <ResumeSection title="Work">
-              <Work experience={experience} />
-            </ResumeSection>
-          ) : null}
+
           {education.length ? (
             <ResumeSection title="Education">
               {education.map((item, index) => (

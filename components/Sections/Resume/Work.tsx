@@ -7,7 +7,7 @@ import TimelineItem from "./TimelineItem";
 
 const Work = memo(({ experience }: WorkProps) => {
   const router = useRouter();
-  const previewNum = 1;
+  const previewNum = 2;
 
   const [showExperience, setShowExperience] = useState(false);
 

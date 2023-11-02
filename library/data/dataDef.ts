@@ -39,15 +39,7 @@ export const SectionId = {
 export type SectionId = (typeof SectionId)[keyof typeof SectionId];
 
 export interface RawPinnedRepo {
-  owner: string;
-  repo: string;
-  link: string;
-  description: string;
-  image: string;
-  language: string;
-  languageColor: string;
-  stars: string;
-  forks: number;
+  html_url: string;
 }
 
 export interface HomepageMeta {

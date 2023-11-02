@@ -1,52 +1,34 @@
-import { PortfolioItem, RawPinnedRepo } from "./dataDef";
+import { PortfolioItem, RawStarredRepo } from "./dataDef";
 
-async function getRawPinnedRepos(username: string) {
-  let data: RawPinnedRepo[];
-  let apiUrls: string[];
+async function getRawStarredRepos(username: string) {
+  let arrayStarredRepos: RawStarredRepo[];
   try {
     const response = await fetch(
-      `https://gh-pinned-repos.egoist.dev/?username=${username}`
+      `https://api.github.com/users/${username}/starred`
     );
-    data = await response.json();
-    apiUrls = [];
-    data.map((x) => {
-      const { owner, repo } = x;
-      const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
-      apiUrls.push(apiUrl);
-    });
+    arrayStarredRepos = await response.json();
   } catch (error) {
-    apiUrls = [];
+    console.log(error);
+    arrayStarredRepos = [];
   }
-  return apiUrls;
+  return arrayStarredRepos;
 }
 
-async function getRepoInfo(url: string) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    return {};
-  }
-}
-
-async function createPortfolioItems(repoUrls: string[]) {
+async function createPortfolioItems(arrayStarredRepos: RawStarredRepo[]) {
   const portfolioItems: PortfolioItem[] = [];
 
-  for (const repoUrl of repoUrls) {
-    const repo = await getRepoInfo(repoUrl);
-    const githubUrl = `https://github.com/${repo.owner.login}/${repo.name}`;
-    let imgUrl = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/HEAD/app-screenshot.png`;
+  for (const starredRepo of arrayStarredRepos) {
+    let imgUrl = `https://raw.githubusercontent.com/${starredRepo.owner.login}/${starredRepo.name}/HEAD/app-screenshot.png`;
     const defaultImageUrl = "https://octodex.github.com/images/droidtocat.png";
-    const response = await fetch(imgUrl);
-    if (!(response.status === 200)) imgUrl = defaultImageUrl;
+    // const response = await fetch(imgUrl);
+    // if (!(response.status === 200)) imgUrl = defaultImageUrl;
     const portfolioItemData: PortfolioItem = {
-      title: repo.name,
-      description: repo.description,
-      githubUrl: githubUrl,
-      siteUrl: repo.homepage,
+      title: starredRepo.name,
+      description: starredRepo.description,
+      githubUrl: starredRepo.html_url,
+      siteUrl: starredRepo.homepage,
       image: imgUrl,
-      tags: repo.topics,
+      tags: starredRepo.topics,
     };
     portfolioItems.push(portfolioItemData);
   }
@@ -55,7 +37,11 @@ async function createPortfolioItems(repoUrls: string[]) {
 }
 
 export async function getPinnedRepos(username: string) {
-  const repoUrls: string[] = await getRawPinnedRepos(username);
-  const portfolioItems: PortfolioItem[] = await createPortfolioItems(repoUrls);
+  const arrayStarredRepos: RawStarredRepo[] = await getRawStarredRepos(
+    username
+  );
+  const portfolioItems: PortfolioItem[] = await createPortfolioItems(
+    arrayStarredRepos
+  );
   return portfolioItems;
 }

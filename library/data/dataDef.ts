@@ -38,8 +38,15 @@ export const SectionId = {
 
 export type SectionId = (typeof SectionId)[keyof typeof SectionId];
 
-export interface RawPinnedRepo {
+export interface RawStarredRepo {
+  name: string;
+  owner: {
+    login: string;
+  };
+  description: string;
   html_url: string;
+  homepage: string;
+  topics: string[];
 }
 
 export interface HomepageMeta {

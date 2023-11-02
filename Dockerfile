@@ -69,7 +69,7 @@ CMD ["node", "server.js"]
 # After creating your dockerhub account
 
 # Run the following line to create the image for this file (including the period at the end, that is the argument)
-# docker build --platform linux/amd64 -t <DockerhubUserName>/<NameOfYourChoosingForThisImage> .
+# docker build --platform linux/amd64 -t <DockerhubUserName>/<NameOfYourChoosingForThisImage> . 
 
 # -t is short for tag, followed by what you want to tag/name your image
 # --platform linux/amd64 is for our free-tier amazon linux x86 ec2 server platform
